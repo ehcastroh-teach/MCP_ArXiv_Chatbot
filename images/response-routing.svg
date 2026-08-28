@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" font-family="'SF Pro Text', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif">
+  <rect width="800" height="560" fill="#FAFAF9"/>
+
+  <text x="400" y="40" text-anchor="middle" font-size="22" font-weight="600" fill="#1A1A1A">Response Routing: The Client's Decision Tree</text>
+  <text x="400" y="62" text-anchor="middle" font-size="13" fill="#6B7280">Every response from the LLM is a list of content blocks. Each block gets routed by type.</text>
+
+  <!-- LLM response box -->
+  <g>
+    <rect x="270" y="100" width="260" height="80" rx="10" fill="#6B46C1" opacity="0.08" stroke="#6B46C1" stroke-width="1.5"/>
+    <text x="400" y="128" text-anchor="middle" font-size="14" font-weight="600" fill="#6B46C1">response.content</text>
+    <text x="400" y="150" text-anchor="middle" font-size="11" fill="#6B46C1">list of content blocks</text>
+    <text x="400" y="168" text-anchor="middle" font-size="10" fill="#8B5CF6" font-style="italic">from client.messages.create(...)</text>
+  </g>
+
+  <!-- Split arrows -->
+  <line x1="400" y1="180" x2="400" y2="200" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="400" y1="200" x2="220" y2="220" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="400" y1="200" x2="580" y2="220" stroke="#9CA3AF" stroke-width="1.5"/>
+  <text x="400" y="216" text-anchor="middle" font-size="11" font-weight="600" fill="#374151">block.type == ?</text>
+
+  <!-- Text branch -->
+  <g>
+    <rect x="80" y="240" width="280" height="200" rx="10" fill="#FFFFFF" stroke="#0369A1" stroke-width="1.5"/>
+    <rect x="80" y="240" width="280" height="32" rx="10" fill="#0369A1"/>
+    <rect x="80" y="264" width="280" height="8" fill="#0369A1"/>
+    <text x="220" y="261" text-anchor="middle" font-size="13" font-weight="600" fill="#FFFFFF">"text" block</text>
+
+    <text x="220" y="298" text-anchor="middle" font-size="12" fill="#0369A1" font-weight="600">The LLM is talking to the user</text>
+
+    <text x="100" y="326" font-size="11" fill="#374151">✓ Print block.text to the user</text>
+    <text x="100" y="346" font-size="11" fill="#374151">✓ If this is the ONLY block,</text>
+    <text x="112" y="362" font-size="11" fill="#374151">the loop is done</text>
+    <text x="100" y="386" font-size="11" fill="#374151">✓ Otherwise, keep processing</text>
+    <text x="112" y="402" font-size="11" fill="#374151">the remaining blocks</text>
+
+    <rect x="100" y="416" width="240" height="18" rx="4" fill="#F0F9FF"/>
+    <text x="220" y="429" text-anchor="middle" font-size="10" fill="#0369A1" font-family="'SF Mono', Menlo, monospace">print(content.text)</text>
+  </g>
+
+  <!-- Tool_use branch -->
+  <g>
+    <rect x="440" y="240" width="280" height="200" rx="10" fill="#FFFFFF" stroke="#059669" stroke-width="1.5"/>
+    <rect x="440" y="240" width="280" height="32" rx="10" fill="#059669"/>
+    <rect x="440" y="264" width="280" height="8" fill="#059669"/>
+    <text x="580" y="261" text-anchor="middle" font-size="13" font-weight="600" fill="#FFFFFF">"tool_use" block</text>
+
+    <text x="580" y="298" text-anchor="middle" font-size="12" fill="#059669" font-weight="600">The LLM wants to call a tool</text>
+
+    <text x="460" y="326" font-size="11" fill="#374151">1. Extract block.name, .input, .id</text>
+    <text x="460" y="346" font-size="11" fill="#374151">2. Add LLM's turn to messages[]</text>
+    <text x="460" y="366" font-size="11" fill="#374151">3. execute_tool(name, input)</text>
+    <text x="460" y="386" font-size="11" fill="#374151">4. Append tool_result to messages[]</text>
+    <text x="460" y="406" font-size="11" fill="#374151">5. Call LLM again with new history</text>
+
+    <rect x="460" y="416" width="240" height="18" rx="4" fill="#F0FDF4"/>
+    <text x="580" y="429" text-anchor="middle" font-size="10" fill="#059669" font-family="'SF Mono', Menlo, monospace">execute_tool(name, args)</text>
+  </g>
+
+  <!-- Callouts -->
+  <g>
+    <rect x="80" y="465" width="640" height="80" rx="8" fill="#FFF7ED" stroke="#F59E0B" stroke-width="1"/>
+    <text x="100" y="487" font-size="12" font-weight="600" fill="#92400E">Two subtle points that trip people up:</text>
+    <text x="100" y="507" font-size="11" fill="#78350F">• One response can contain BOTH text and tool_use blocks — the LLM often "thinks out loud" before calling a tool.</text>
+    <text x="100" y="523" font-size="11" fill="#78350F">• The tool_result must be added as role="user" (not "assistant") — that's the convention, even though YOU produced it.</text>
+    <text x="100" y="539" font-size="10" fill="#B45309" font-style="italic">If your loop hangs, print len(response.content) and each block.type — you'll usually see why.</text>
+  </g>
+</svg>

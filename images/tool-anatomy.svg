@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="'SF Pro Text', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif">
+  <rect width="900" height="560" fill="#FAFAF9"/>
+
+  <!-- Title -->
+  <text x="450" y="42" text-anchor="middle" font-size="22" font-weight="600" fill="#1A1A1A">Anatomy of an MCP Tool</text>
+  <text x="450" y="64" text-anchor="middle" font-size="13" fill="#6B7280">Three pieces working in concert — the schema, the function, and the mapping</text>
+
+  <!-- Schema box -->
+  <g>
+    <rect x="60" y="110" width="260" height="330" rx="10" fill="#FFFFFF" stroke="#059669" stroke-width="1.5"/>
+    <rect x="60" y="110" width="260" height="34" rx="10" fill="#059669"/>
+    <rect x="60" y="134" width="260" height="10" fill="#059669"/>
+    <text x="190" y="132" text-anchor="middle" font-size="13" font-weight="600" fill="#FFFFFF">1. Schema (JSON)</text>
+    <text x="190" y="164" text-anchor="middle" font-size="10" fill="#6B7280">Contract shown to the LLM</text>
+
+    <!-- Schema content -->
+    <g font-family="'SF Mono', Menlo, Consolas, monospace" font-size="10.5">
+      <text x="76" y="192" fill="#065F46">{</text>
+      <text x="90" y="208" fill="#374151">"name": <tspan fill="#B45309">"search_papers"</tspan>,</text>
+      <text x="90" y="224" fill="#374151">"description":</text>
+      <text x="104" y="238" fill="#B45309">"Search arXiv by topic",</text>
+      <text x="90" y="254" fill="#374151">"input_schema": {</text>
+      <text x="104" y="270" fill="#374151">"type": <tspan fill="#B45309">"object"</tspan>,</text>
+      <text x="104" y="284" fill="#374151">"properties": {</text>
+      <text x="118" y="298" fill="#374151">"topic": {</text>
+      <text x="132" y="312" fill="#374151">"type": <tspan fill="#B45309">"string"</tspan>,</text>
+      <text x="132" y="326" fill="#374151">"description":</text>
+      <text x="146" y="340" fill="#B45309">"topic to search"</text>
+      <text x="118" y="354" fill="#374151">}</text>
+      <text x="104" y="368" fill="#374151">},</text>
+      <text x="104" y="382" fill="#374151">"required": [<tspan fill="#B45309">"topic"</tspan>]</text>
+      <text x="90" y="396" fill="#374151">}</text>
+      <text x="76" y="410" fill="#065F46">}</text>
+    </g>
+    <text x="190" y="430" text-anchor="middle" font-size="10" fill="#059669" font-style="italic">What the LLM sees</text>
+  </g>
+
+  <!-- Function box -->
+  <g>
+    <rect x="340" y="110" width="220" height="330" rx="10" fill="#FFFFFF" stroke="#4C51BF" stroke-width="1.5"/>
+    <rect x="340" y="110" width="220" height="34" rx="10" fill="#4C51BF"/>
+    <rect x="340" y="134" width="220" height="10" fill="#4C51BF"/>
+    <text x="450" y="132" text-anchor="middle" font-size="13" font-weight="600" fill="#FFFFFF">2. Function (Python)</text>
+    <text x="450" y="164" text-anchor="middle" font-size="10" fill="#6B7280">The real implementation</text>
+
+    <g font-family="'SF Mono', Menlo, Consolas, monospace" font-size="10.5">
+      <text x="356" y="192" fill="#7C3AED">def</text>
+      <text x="384" y="192" fill="#4C51BF">search_papers</text>
+      <text x="356" y="206" fill="#374151">(topic: str,</text>
+      <text x="356" y="220" fill="#374151"> max_results=5):</text>
+
+      <text x="356" y="244" fill="#7C3AED">    """</text>
+      <text x="356" y="258" fill="#374151">    Query arXiv,</text>
+      <text x="356" y="272" fill="#374151">    store results,</text>
+      <text x="356" y="286" fill="#374151">    return IDs.</text>
+      <text x="356" y="300" fill="#7C3AED">    """</text>
+
+      <text x="356" y="324" fill="#374151">    client = arxiv.</text>
+      <text x="356" y="338" fill="#374151">        Client()</text>
+      <text x="356" y="356" fill="#374151">    search = arxiv.</text>
+      <text x="356" y="370" fill="#374151">        Search(...)</text>
+      <text x="356" y="388" fill="#374151">    # ... save JSON</text>
+      <text x="356" y="406" fill="#7C3AED">    return</text>
+      <text x="410" y="406" fill="#374151">paper_ids</text>
+    </g>
+    <text x="450" y="430" text-anchor="middle" font-size="10" fill="#4C51BF" font-style="italic">Does the actual work</text>
+  </g>
+
+  <!-- Dispatcher box -->
+  <g>
+    <rect x="580" y="110" width="260" height="330" rx="10" fill="#FFFFFF" stroke="#B45309" stroke-width="1.5"/>
+    <rect x="580" y="110" width="260" height="34" rx="10" fill="#B45309"/>
+    <rect x="580" y="134" width="260" height="10" fill="#B45309"/>
+    <text x="710" y="132" text-anchor="middle" font-size="13" font-weight="600" fill="#FFFFFF">3. Dispatcher</text>
+    <text x="710" y="164" text-anchor="middle" font-size="10" fill="#6B7280">Bridges schema name to function</text>
+
+    <g font-family="'SF Mono', Menlo, Consolas, monospace" font-size="10.5">
+      <text x="596" y="196" fill="#374151">tool_functions = {</text>
+      <text x="610" y="212" fill="#B45309">"search_papers":</text>
+      <text x="624" y="226" fill="#4C51BF">search_papers,</text>
+      <text x="610" y="242" fill="#B45309">"extract_info":</text>
+      <text x="624" y="256" fill="#4C51BF">extract_info,</text>
+      <text x="596" y="270" fill="#374151">}</text>
+
+      <text x="596" y="298" fill="#7C3AED">def</text>
+      <text x="624" y="298" fill="#4C51BF">execute_tool</text>
+      <text x="596" y="312" fill="#374151">(name, args):</text>
+      <text x="596" y="330" fill="#374151">  fn = tool_</text>
+      <text x="596" y="344" fill="#374151">    functions[name]</text>
+      <text x="596" y="362" fill="#374151">  result = fn(**args)</text>
+      <text x="596" y="380" fill="#7C3AED">  return</text>
+      <text x="650" y="380" fill="#374151">stringify(</text>
+      <text x="596" y="394" fill="#374151">    result)</text>
+    </g>
+    <text x="710" y="430" text-anchor="middle" font-size="10" fill="#B45309" font-style="italic">Routes calls, normalizes output</text>
+  </g>
+
+  <!-- Bottom explanation -->
+  <g>
+    <rect x="60" y="465" width="780" height="80" rx="8" fill="#EEF2FF" stroke="#4C51BF" stroke-width="1"/>
+    <text x="80" y="488" font-size="12" font-weight="600" fill="#3730A3">How the three pieces cooperate:</text>
+    <text x="80" y="508" font-size="11" fill="#312E81">The LLM reads the <tspan font-weight="600">schema</tspan> and decides to call a tool by name with arguments. The <tspan font-weight="600">dispatcher</tspan> looks up that name in</text>
+    <text x="80" y="524" font-size="11" fill="#312E81">its mapping, calls the matching <tspan font-weight="600">function</tspan> with the arguments, then normalizes the return value to a string the LLM can read.</text>
+    <text x="80" y="540" font-size="10" fill="#4338CA" font-style="italic">Change the schema and you change what the LLM CAN request. Change the function and you change what actually HAPPENS.</text>
+  </g>
+</svg>

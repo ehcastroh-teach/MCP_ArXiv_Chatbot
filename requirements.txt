@@ -1,0 +1,19 @@
+# Development & Notebooks
+ipykernel
+jupyter
+notebook
+
+# LLM Integration
+anthropic
+mcp
+
+# Data Retrieval
+arxiv
+
+# Document Processing
+pypdf2
+
+# Config & Utilities
+python-dotenv
+typing
+uv

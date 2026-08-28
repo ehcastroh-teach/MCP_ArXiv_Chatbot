@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" font-family="'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif">
+  <!-- Gradient background -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E1B4B"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#F97316"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6B46C1" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#6B46C1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="480" fill="url(#bg)"/>
+
+  <!-- Ambient glow -->
+  <circle cx="900" cy="240" r="280" fill="url(#glow)"/>
+
+  <!-- Grid pattern for tech feel -->
+  <g opacity="0.06" stroke="#FFFFFF" stroke-width="0.5">
+    <line x1="0" y1="60" x2="1200" y2="60"/>
+    <line x1="0" y1="120" x2="1200" y2="120"/>
+    <line x1="0" y1="180" x2="1200" y2="180"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="360" x2="1200" y2="360"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+  </g>
+
+  <!-- Left side: Title -->
+  <g>
+    <text x="80" y="140" font-size="16" font-weight="500" fill="#F59E0B" letter-spacing="4">A TEACHING REPOSITORY</text>
+
+    <text x="80" y="210" font-size="64" font-weight="700" fill="#FFFFFF">Building</text>
+    <text x="80" y="278" font-size="64" font-weight="700" fill="#FFFFFF">MCP <tspan fill="url(#accent)">Applications</tspan></text>
+
+    <text x="80" y="326" font-size="22" fill="#CBD5E1">An arXiv chatbot from schema to production</text>
+
+    <!-- Chips -->
+    <g font-size="12" font-weight="600">
+      <rect x="80" y="360" width="90" height="26" rx="13" fill="#6B46C1" opacity="0.25" stroke="#6B46C1"/>
+      <text x="125" y="378" text-anchor="middle" fill="#C4B5FD">Python</text>
+
+      <rect x="180" y="360" width="90" height="26" rx="13" fill="#059669" opacity="0.25" stroke="#059669"/>
+      <text x="225" y="378" text-anchor="middle" fill="#6EE7B7">Anthropic</text>
+
+      <rect x="280" y="360" width="90" height="26" rx="13" fill="#0369A1" opacity="0.25" stroke="#0369A1"/>
+      <text x="325" y="378" text-anchor="middle" fill="#7DD3FC">Tools</text>
+
+      <rect x="380" y="360" width="90" height="26" rx="13" fill="#F59E0B" opacity="0.25" stroke="#F59E0B"/>
+      <text x="425" y="378" text-anchor="middle" fill="#FCD34D">Tutorial</text>
+    </g>
+
+    <text x="80" y="430" font-size="13" fill="#94A3B8" font-style="italic">3 notebooks · homework · advanced examples · working chatbot</text>
+  </g>
+
+  <!-- Right side: Abstract MCP diagram -->
+  <g transform="translate(720, 90)">
+    <!-- User node -->
+    <g>
+      <rect x="140" y="0" width="140" height="46" rx="23" fill="#1E293B" stroke="#94A3B8" stroke-width="1.5"/>
+      <text x="210" y="28" text-anchor="middle" font-size="13" font-weight="600" fill="#F1F5F9">User Query</text>
+    </g>
+
+    <!-- Connection lines with pulse dots -->
+    <line x1="210" y1="46" x2="210" y2="90" stroke="#F59E0B" stroke-width="2"/>
+    <circle cx="210" cy="68" r="4" fill="#F59E0B"/>
+
+    <!-- Client node -->
+    <g>
+      <rect x="120" y="90" width="180" height="52" rx="10" fill="#312E81" stroke="#818CF8" stroke-width="1.5"/>
+      <text x="210" y="115" text-anchor="middle" font-size="14" font-weight="700" fill="#E0E7FF">CLIENT</text>
+      <text x="210" y="132" text-anchor="middle" font-size="10" fill="#A5B4FC">process_query( )</text>
+    </g>
+
+    <!-- LLM node -->
+    <line x1="300" y1="116" x2="360" y2="116" stroke="#A78BFA" stroke-width="2" stroke-dasharray="4,4"/>
+    <circle cx="330" cy="116" r="4" fill="#A78BFA"/>
+    <g>
+      <rect x="360" y="90" width="120" height="52" rx="26" fill="#4C1D95" stroke="#C4B5FD" stroke-width="1.5"/>
+      <text x="420" y="115" text-anchor="middle" font-size="13" font-weight="700" fill="#EDE9FE">Claude</text>
+      <text x="420" y="132" text-anchor="middle" font-size="10" fill="#C4B5FD">LLM</text>
+    </g>
+
+    <!-- Server section -->
+    <line x1="210" y1="142" x2="210" y2="186" stroke="#10B981" stroke-width="2"/>
+    <circle cx="210" cy="164" r="4" fill="#10B981"/>
+
+    <g>
+      <rect x="60" y="186" width="300" height="52" rx="10" fill="#064E3B" stroke="#34D399" stroke-width="1.5"/>
+      <text x="210" y="211" text-anchor="middle" font-size="14" font-weight="700" fill="#D1FAE5">SERVER (Tools)</text>
+      <text x="210" y="228" text-anchor="middle" font-size="10" fill="#6EE7B7">search_papers · extract_info</text>
+    </g>
+
+    <!-- Data flow -->
+    <g transform="translate(0, 260)">
+      <text x="210" y="0" text-anchor="middle" font-size="11" fill="#94A3B8">↓ returns paper metadata ↓</text>
+      <rect x="120" y="14" width="180" height="52" rx="10" fill="#0F172A" stroke="#F59E0B" stroke-width="1.5"/>
+      <text x="210" y="39" text-anchor="middle" font-size="13" font-weight="700" fill="#FEF3C7">arXiv API</text>
+      <text x="210" y="56" text-anchor="middle" font-size="10" fill="#FCD34D">2501.12345 · 2412.98765 · ...</text>
+    </g>
+  </g>
+
+  <!-- Footer badge -->
+  <g>
+    <rect x="80" y="446" width="180" height="20" rx="10" fill="#0F172A" stroke="#F59E0B" stroke-width="1"/>
+    <text x="170" y="460" text-anchor="middle" font-size="11" font-weight="600" fill="#F59E0B">ehcastroh-teach · applied AI</text>
+  </g>
+</svg>

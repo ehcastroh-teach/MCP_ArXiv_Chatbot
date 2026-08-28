@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 620" font-family="'SF Pro Text', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <!-- Background -->
+  <rect width="800" height="620" fill="#FAFAF9"/>
+
+  <!-- Title -->
+  <text x="400" y="42" text-anchor="middle" font-size="22" font-weight="600" fill="#1A1A1A">MCP Application Architecture</text>
+  <text x="400" y="66" text-anchor="middle" font-size="13" fill="#6B7280">Three cooperating layers, one conversation loop</text>
+
+  <!-- Layer 1: User -->
+  <g>
+    <rect x="80" y="100" width="640" height="80" rx="10" fill="#FFFFFF" stroke="#2D3748" stroke-width="1.5"/>
+    <rect x="80" y="100" width="6" height="80" rx="3" fill="#2D3748"/>
+    <text x="106" y="128" font-size="14" font-weight="600" fill="#2D3748">USER LAYER</text>
+    <text x="106" y="150" font-size="13" fill="#374151">Terminal, web UI, Slack — wherever the query starts</text>
+    <text x="106" y="168" font-size="12" fill="#6B7280" font-style="italic">chat_loop() prompts, prints answers, handles quit</text>
+  </g>
+
+  <!-- Arrow 1: User → Client -->
+  <g>
+    <line x1="400" y1="180" x2="400" y2="212" stroke="#9CA3AF" stroke-width="1.5"/>
+    <polygon points="400,220 395,210 405,210" fill="#9CA3AF"/>
+    <text x="412" y="200" font-size="11" fill="#6B7280">query</text>
+  </g>
+
+  <!-- Layer 2: Client -->
+  <g>
+    <rect x="80" y="222" width="640" height="120" rx="10" fill="#FFFFFF" stroke="#4C51BF" stroke-width="1.5"/>
+    <rect x="80" y="222" width="6" height="120" rx="3" fill="#4C51BF"/>
+    <text x="106" y="250" font-size="14" font-weight="600" fill="#4C51BF">CLIENT LAYER</text>
+    <text x="106" y="272" font-size="13" fill="#374151">Orchestrates the conversation with the LLM</text>
+    <text x="106" y="296" font-size="12" fill="#6B7280">• process_query() — maintains messages list</text>
+    <text x="106" y="314" font-size="12" fill="#6B7280">• routes text vs tool_use response blocks</text>
+    <text x="106" y="332" font-size="12" fill="#6B7280">• loops until final text answer arrives</text>
+  </g>
+
+  <!-- LLM (side) -->
+  <g>
+    <rect x="580" y="248" width="120" height="68" rx="34" fill="#6B46C1" opacity="0.08" stroke="#6B46C1" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="640" y="282" text-anchor="middle" font-size="13" font-weight="600" fill="#6B46C1">Claude LLM</text>
+    <text x="640" y="300" text-anchor="middle" font-size="10" fill="#6B46C1">(external)</text>
+  </g>
+  <line x1="490" y1="282" x2="576" y2="282" stroke="#6B46C1" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <text x="533" y="276" text-anchor="middle" font-size="10" fill="#6B46C1">API</text>
+
+  <!-- Arrow 2: Client → Server -->
+  <g>
+    <line x1="400" y1="342" x2="400" y2="374" stroke="#9CA3AF" stroke-width="1.5"/>
+    <polygon points="400,382 395,372 405,372" fill="#9CA3AF"/>
+    <text x="412" y="362" font-size="11" fill="#6B7280">tool call</text>
+    <line x1="358" y1="382" x2="358" y2="342" stroke="#9CA3AF" stroke-width="1.5"/>
+    <polygon points="358,338 353,348 363,348" fill="#9CA3AF"/>
+    <text x="288" y="362" font-size="11" fill="#6B7280">tool result</text>
+  </g>
+
+  <!-- Layer 3: Server -->
+  <g>
+    <rect x="80" y="384" width="640" height="140" rx="10" fill="#FFFFFF" stroke="#059669" stroke-width="1.5"/>
+    <rect x="80" y="384" width="6" height="140" rx="3" fill="#059669"/>
+    <text x="106" y="412" font-size="14" font-weight="600" fill="#059669">SERVER LAYER</text>
+    <text x="106" y="434" font-size="13" fill="#374151">Defines what tools exist and executes them</text>
+
+    <!-- Server components -->
+    <g>
+      <rect x="106" y="452" width="180" height="56" rx="6" fill="#F0FDF4" stroke="#059669" stroke-width="1"/>
+      <text x="196" y="472" text-anchor="middle" font-size="12" font-weight="600" fill="#065F46">Tool Schemas</text>
+      <text x="196" y="490" text-anchor="middle" font-size="10" fill="#065F46">JSON contract for LLM</text>
+      <text x="196" y="502" text-anchor="middle" font-size="10" fill="#065F46">(name, inputs, required)</text>
+    </g>
+
+    <g>
+      <rect x="310" y="452" width="180" height="56" rx="6" fill="#F0FDF4" stroke="#059669" stroke-width="1"/>
+      <text x="400" y="472" text-anchor="middle" font-size="12" font-weight="600" fill="#065F46">Dispatcher</text>
+      <text x="400" y="490" text-anchor="middle" font-size="10" fill="#065F46">execute_tool() routes</text>
+      <text x="400" y="502" text-anchor="middle" font-size="10" fill="#065F46">name → function call</text>
+    </g>
+
+    <g>
+      <rect x="514" y="452" width="180" height="56" rx="6" fill="#F0FDF4" stroke="#059669" stroke-width="1"/>
+      <text x="604" y="472" text-anchor="middle" font-size="12" font-weight="600" fill="#065F46">Tool Functions</text>
+      <text x="604" y="490" text-anchor="middle" font-size="10" fill="#065F46">search_papers()</text>
+      <text x="604" y="502" text-anchor="middle" font-size="10" fill="#065F46">extract_info()</text>
+    </g>
+  </g>
+
+  <!-- Footer legend -->
+  <g>
+    <rect x="80" y="552" width="640" height="42" rx="6" fill="#FFF7ED" stroke="#F59E0B" stroke-width="1"/>
+    <text x="100" y="573" font-size="11" fill="#92400E" font-weight="600">Key insight:</text>
+    <text x="170" y="573" font-size="11" fill="#78350F">The layers are logical, not physical. In arxiv_chatbot.py, all three live in one file —</text>
+    <text x="100" y="587" font-size="11" fill="#78350F">but keeping them mentally separate is what lets you deploy the same tools behind a web API, Slack bot, or CLI.</text>
+  </g>
+</svg>
