@@ -152,3 +152,14 @@ python arxiv_chatbot.py
 ## Credits and Acknowledgements
 
 Tool-calling architecture and terminology follow the Model Context Protocol design as documented by Anthropic and community MCP contributors. The arXiv chatbot pattern is adapted from Anthropic's tool-use cookbook. Paper metadata is retrieved from arXiv.org via the `arxiv` Python client (Lukas Schwab).
+---
+
+## Contact
+
+<div align="center">
+  <img src="images/thumbnails/ehcastroh_teach_banner_flower.png" alt="ehcastroh" width="90" style="border-radius: 50%;" />
+
+  <sub>ehcastroh</sub>
+
+  <a href="https://github.com/ehcastroh">GitHub</a> · <a href="https://www.linkedin.com/in/ehcastroh/">LinkedIn</a>
+</div>
